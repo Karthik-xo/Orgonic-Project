@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom checkbox styles */
+        .radio-label input[type="radio"] {
+            display: none; /* Hide default radio input */
+        }
+
+        .radio-label span {
+            position: relative;
+            padding-left: 30px; /* Space for custom tick mark */
+            cursor: pointer;
+            display: inline-block;
+            line-height: 1.5;
+        }
+
+        .radio-label span::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #007bff; /* Border color for unselected */
+            border-radius: 50%; /* Round shape for tick mark */
+            transition: all 0.3s; /* Smooth transition */
+        }
+
+        .radio-label input[type="radio"]:checked + span::before {
+            background-color: #007bff; /* Background color when selected */
+            border-color: #007bff; /* Border color when selected */
+        }
+
+        .radio-label input[type="radio"]:checked + span::after {
+            content: '✔';
+            position: absolute;
+            left: 5px;
+            top: 3px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .radio-label img {
+            height: 40px;
+            margin-left: auto;
+        }
+
+        /* Payment methods grid */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .radio-label {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .radio-label img {
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        .radio-label.selected {
+            border-color: #007bff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Red star symbol styles */
+        .star {
+            color: #ff3d00;
+            font-size: 1.2em; /* Adjust size as needed */
+            margin-left: 5px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .payment-methods {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+
+            .radio-label img {
+                height: 30px;
+            }
+
+            .star {
+                font-size: 1em; /* Adjust size for smaller screens */
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #f3ec78, #af4261);
+            animation: backgroundAnimation 15s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(45deg, #f3ec78, #af4261); }
+            50% { background: linear-gradient(45deg, #af4261, #f3ec78); }
+            100% { background: linear-gradient(45deg, #f3ec78, #af4261); }
+        }
+
+        .checkout-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            max-width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .radio-label input {
+            margin-right: 10px;
+        }
+
+        .radio-label img {
+            height: 40px;
+            margin-left: auto;
+        }
+
+        .payment-methods,
+        .shipping-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        .img-container {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .cancel {
+            background: #28a745; /* Green color */
+        }
+
+        .cancel:hover {
+            background: #218838;
+        }
+
+        .another-action {
+            background: #ff3d00; /* Red color */
+        }
+
+        .another-action:hover {
+            background: #e63946;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .checkout-container {
+                padding: 15px;
+            }
+
+            h1, h2 {
+                font-size: 1.5em;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .radio-label {
+                margin: 5px 0;
+            }
+
+            .radio-label input {
+                margin-right: 8px;
+            }
+
+            .radio-label img {
+                height: 30px;
+            }
+
+            input, select, textarea {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .img-container {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .img-container img {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h1>CHECKOUT</h1>
+        <form id="checkout-form" action="user.php" method="POST">
+            <!-- Existing form fields -->
+            <div class="section">
+                <h2>1. SHIPPING ADDRESS</h2>
+                <label for="first-name">First Name: <span class="star">*</span></label>
+                <input type="text" id="first_name" name="first_name" required>
+
+                <label for="last-name">Last Name: <span class="star">*</span></label>
+                <input type="text" id="last_name" name="last_name" required>
+
+                <label for="email">Email Address: <span class="star">*</span></label>
+                <input type="email" id="email" name="email" required>  
+                
+                <label for="telephone">Telephone: <span class="star">*</span></label>
+                <input type="text" id="telephone" name="telephone" required>
+
+                <label for="street-address">Street Address: <span class="star">*</span></label>
+                <input type="text" id="street" name="street" required>
+
+                <label for="country">Country: <span class="star">*</span></label>
+                <select id="country" name="country" required>
+                    <!-- Country options will be populated by JavaScript -->
+                </select>
+
+                <label for="state">State/Province: <span class="star">*</span></label>
+                <input type="text" id="state" name="state" required>
+
+                <label for="city">City: <span class="star">*</span></label>
+                <input type="text" id="city" name="city" required>
+
+                <label for="zip">Post/Zip Code: <span class="star">*</span></label>
+                <input type="text" id="zip_code" name="zip_code" required>
+            </div>
+
+            <div class="section">
+                <h2>2. SHIPPING METHODS</h2>
+                <button type="button" id="show-shipping-methods">Select Shipping Method</button>
+                <div id="shipping-methods-container" class="hidden">
+                    <div class="shipping-methods">
+                        <label class="radio-label">
+                            <input type="radio" name="shipping_method" value="free" checked>
+                            <span>FREE SHIPPING! (₹0.00)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="shipping_method" value="standard">
+                            <span>Standard Shipping (₹50.00)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="shipping_method" value="express">
+                            <span>Express Shipping (₹150.00)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>3. PAYMENT METHOD</h2>
+                <button type="button" id="show-payment-methods">Select Payment Method</button>
+                <div id="payment-methods-container" class="hidden">
+                    <div class="payment-methods">
+                        <label class="radio-label">
+                            <input type="radio" name="payment_method" value="visa" checked>
+                            <span>Visa</span>
+                            <img src="image/visa.png" alt="Visa">
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment_method" value="mastercard">
+                            <span>MasterCard</span>
+                            <img src="image/Master card.png" alt="MasterCard">
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment_method" value="phonepe">
+                            <span>PhonePe</span>
+                            <img src="image/phonepay.png" alt="PhonePe">
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment_method" value="gpay">
+                            <span>G-Pay</span>
+                            <img src="image/g-pay.avif" alt="G-Pay">
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment_method" value="paytm">
+                            <span>Paytm</span>
+                            <img src="image/paytm.avif" alt="Paytm">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>4. REVIEW YOUR ORDER</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="img-container">
+                                    <img src="image/sliced-seed.jpg" alt="Daikon Radish Sprouting Seed">
+                                </div>
+                            </td>
+                            <td>Chia Seed (Organic)</td>
+                            <td>3</td>
+                            <td>₹12,000.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="totals">
+                    <p>Sub-Total: ₹12,000.00</p>
+                    <p>FREE SHIPPING! (No Delivery Charge): ₹0.00</p>
+                    <p>Total: ₹12,000.00</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <label for="comments">COMMENTS</label>
+                <textarea id="comments" name="comments"></textarea>
+            </div>
+            
+            <input type="hidden" id="cart" name="cart" value='[{"name": "Chia Seed (Organic)", "quantity": 3, "total": 12000}]'>
+            <button type="submit">Proceed to Credit Card Pay</button><br>
+            <button type="button" class="another-action" onclick="validateAndProcessUPI()">Process To UPI Payment</button><br>
+            <button class="cancel" type="button" onclick="location.href='orgonic.html'">Cancel</button>
+        </form>
+    </div>
+    <script>
+        function validateAndProcessUPI() {
+            const form = document.getElementById('checkout-form');
+            const requiredInputs = form.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '#ccc';
+                }
+            });
+
+            if (isValid) {
+                // Redirect to the UPI payment page
+                window.location.href = 'UPI.html'; // Change 'UPI.html' to your actual UPI payment page
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const countrySelect = document.getElementById("country");
+            const shippingButton = document.getElementById("show-shipping-methods");
+            const paymentButton = document.getElementById("show-payment-methods");
+            const shippingContainer = document.getElementById("shipping-methods-container");
+            const paymentContainer = document.getElementById("payment-methods-container");
+            
+            // List of countries
+            const countries = [
+                "India", "United States", "Canada", "Mexico", "United Kingdom", "Germany", "France",
+                "Italy", "Spain", "Australia", "Japan", "China", "Brazil", "Russia", "South Africa"
+                // Add more countries as needed
+            ];
+
+            // Populate country dropdown
+            countries.forEach(country => {
+                const option = document.createElement("option");
+                option.value = country;
+                option.textContent = country;
+                countrySelect.appendChild(option);
+            });
+
+            // Show shipping methods on button click
+            shippingButton.addEventListener("click", function() {
+                shippingContainer.classList.toggle("hidden");
+            });
+
+            // Show payment methods on button click
+            paymentButton.addEventListener("click", function() {
+                paymentContainer.classList.toggle("hidden");
+            });
+
+            // Function to handle click on payment method
+            document.querySelectorAll('input[name="payment_method"]').forEach(function(input) {
+                input.addEventListener("change", function() {
+                    document.querySelectorAll('.payment-methods .radio-label').forEach(function(label) {
+                        label.classList.remove('selected'); // Remove selected class from all labels
+                    });
+                    if (input.checked) {
+                        input.closest('.radio-label').classList.add('selected'); // Add selected class to the closest label
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Orgonic Species</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+        @import url('https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Ubuntu');
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        h1,h2 {
+            text-align: center;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        /* Main Section layout */
+        .main-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 50px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 200, 0, 0.3);
+        }
+
+        .about-item img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .about-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .about-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+		/* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Featured Products Section */
+        .featured-products {
+            background-color: #e9f7ef;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-products h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #28a745;
+            margin-bottom: 30px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .product-item {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .product-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-item h3 {
+            color: #28a745;
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        .product-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 200, 0, 0.3);
+        }
+
+        /* Customer Evaluation Section */
+        .customer-evaluation {
+            background-color: #f9f9f9;
+            padding: 50px 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            animation: fadeInUp 1s ease-in-out both;
+        }
+
+        .customer-evaluation h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #28a745;
+            margin-bottom: 40px;
+            animation: slideInFromLeft 1s ease both;
+        }
+
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .evaluation-item {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            animation: fadeInUp 0.6s ease-in-out both;
+        }
+
+        .evaluation-item h3 {
+            font-size: 1.6em;
+            color: #28a745;
+            transition: color 0.3s ease;
+        }
+
+        .evaluation-item p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .evaluation-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 200, 0, 0.3);
+            animation: zoomIn 0.6s ease forwards;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Footer Section Styling */
+        .footer-section {
+            background-color: #28a745;
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-about p,
+        .footer-links ul,
+        .footer-social ul {
+            color: #f4f4f4;
+            line-height: 1.8;
+        }
+
+        .footer-links ul,
+        .footer-social ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links a,
+        .footer-social a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover,
+        .footer-social a:hover {
+            color: #f9e036;
+            transform: translateY(-5px);
+        }
+
+        /* Underline animation */
+        .footer-links a::after,
+        .footer-social a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #f9e036;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after,
+        .footer-social a:hover::after {
+            width: 100%;
+        }
+
+        /* Social media icons */
+        .footer-social a {
+            display: inline-block;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .main-section {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+		/* Customer Evaluation Section */
+.customer-evaluation {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    animation: fadeIn 1s ease-in-out both;
+}
+
+.customer-evaluation h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #28a745;
+    margin-bottom: 40px;
+}
+
+.evaluation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+.evaluation-item {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: scaleIn 0.5s ease forwards;
+}
+
+.evaluation-item h3 {
+    font-size: 1.6em;
+    color: #28a745;
+}
+
+.evaluation-item p {
+    color: #555;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.evaluation-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 200, 0, 0.3);
+}
+/* Footer Bottom Section Styling */
+.footer-bottom {
+    text-align: center;
+    padding: 20px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 1em;
+    margin-top: 20px;
+    width: 100%; /* Ensures the footer spans across the page */
+}
+
+
+    </style>
+</head>
+
+<body>
+   <h1>About Us - Orgonic Species</h1>
+    <div class="main-section">
+        <div class="about-section">
+            <div class="about-content">
+                <div class="about-item">
+                    <img src="image/Kiwi-seed.jpg" alt="Product History">
+					<h1>Kiwi-seed</h1>
+                    <h3>Product History</h3>
+					
+                    <p>Orgonic Species has been delivering high-quality organic products since its inception. We began with a passion for sustainable agriculture and now provide a wide range of eco-friendly products. From organic seeds to herbal teas and natural fertilizers, our journey is dedicated to promoting a greener planet.</p>
+                </div>
+            </div><br><br>
+			
+			 <div class="about-content">
+                <div class="about-item">
+                    <img src="image/Fruite  seed.png" alt="Product History">
+					<h1>Lichi sweet fruit Seed<h1>
+                    <h3>Product History</h3>
+					
+                <p>Every seed we offer is a testament to the rich diversity of nature, carefully selected for its ability to thrive in varying climates while maintaining its organic integrity. From the lush orchards of tropical regions to temperate zones, our Fruit Seeds ensure that each plant grown is pure, free from harmful chemicals, and enriched with natural goodness.</p>
+                </div>
+            </div><br><br>
+			 <div class="about-content">
+                <div class="about-item">
+                    <img src="image/con seed.jpg" alt="Product History">
+					<h1>Con Seed</h1>
+                    <h3>Product History</h3>
+                    <p>At Con Seed, every seed undergoes meticulous selection to ensure it meets our rigorous standards of purity and quality. Our product line spans across fruit, vegetable, herb, and flower seeds, all chosen for their ability to thrive in diverse climates and conditions while supporting biodiversity. With an unwavering commitment to sustainability, we empower both novice and experienced gardeners to grow their own food and flowers in ways that replenish the soil and foster ecological balance.</p>               
+                      </div>
+                </div>
+			 <div class="about-content">
+                <div class="about-item">
+                    <img src="image/nature-basket-apples-grapes.jpg" alt="Product History">
+					<h1>Nature-basket</h1>
+                    <h3>Product History</h3>
+                  <p>Our journey began with a love for fruits—particularly their ability to nourish, refresh, and bring joy to people’s lives. Over the years, we've worked with local farmers and producers to ensure that every piece of fruit that reaches our baskets is a testament to nature’s excellence. From the juiciest tropical mangoes to crisp apples and the sweetest berries, Nature-Basket Fruits stands for authentic, farm-fresh quality.</p>              
+				  </div>
+            </div>
+        </div>
+		
+        <div class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-item">
+                    <img src="image/Creamy-Vanilla-Chia-Seed.jpg" alt="Product 1">
+                    <h3>Creamy Vanilla Chia Seed</h3>
+                    <p>Creamy vanilla chia: a dessert that’s as good for your body as it is for your soul.</p>
+                </div>
+                <div class="product-item">
+                    <img src="image/Health  seed.jpg" alt="Product 2">
+                    <h3>Herbal Nuts</h3>
+                    <p>Life is better with nuts.</p>
+                </div>
+                <div class="product-item">
+                    <img src="image/garam-masala.webp" alt="Product 3">
+                    <h3>Cultivate health with nature’s.</h3>
+                    <p>Garam masala: the heartbeat of Indian cuisine.</p>
+                </div>
+				 <div class="product-item">
+                    <img src="image/sunflower-seeds.webp" alt="Product 3">
+                    <h3>Fuel your day with the golden goodness of sunflower seeds.</h3>
+                   <p>The golden gems of wellness</p>              
+               </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="customer-evaluation">
+        <h2>Customer Evaluations</h2>
+        <div class="evaluation-grid">
+            <div class="evaluation-item">
+                <h3>John Doe</h3>
+                <p>"Orgonic Species has transformed my gardening experience. The quality is unmatched!"</p>
+            </div>
+            <div class="evaluation-item">
+                <h3>Jane Smith</h3>
+                <p>"Their products are exceptional! I love the herbal teas."</p>
+            </div>
+            <div class="evaluation-item">
+                <h3>Emily Johnson</h3>
+                <p>"I highly recommend Orgonic Species for anyone looking for organic solutions."</p>
+            </div>
+        </div>
+    </div>
+	<!-- Customer Evaluation Section -->
+<section class="customer-evaluation">
+    <h2>Customer Reviews</h2>
+    <div class="evaluation-grid">
+        <!-- Review 1 -->
+        <div class="evaluation-item">
+            <h3>John Doe</h3>
+            <p>"I love the organic products from Orgonic Species. The quality and packaging are outstanding!"</p>
+            <div class="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+        </div>
+        <!-- Review 2 -->
+        <div class="evaluation-item">
+            <h3>Sarah Smith</h3>
+            <p>"The best eco-friendly products I’ve ever purchased. Highly recommend to everyone!"</p>
+            <div class="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+        </div>
+        <!-- Review 3 -->
+        <div class="evaluation-item">
+            <h3>Mike Johnson</h3>
+            <p>"Exceptional service and quality. I’ve never been disappointed with my orders."</p>
+            <div class="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+        </div>
+        <!-- Review 4 -->
+        <div class="evaluation-item">
+            <h3>Linda Williams</h3>
+            <p>"Fantastic range of products and their commitment to the environment is amazing."</p>
+            <div class="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+        </div>
+        <!-- Review 5 -->
+        <div class="evaluation-item">
+            <h3>Jane Smith</h3>
+            <p>"I love the variety of products! It's refreshing to find a company that prioritizes sustainability and customer satisfaction."</p>
+            <div class="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+        </div>
+        <!-- Review 6 -->
+        <div class="evaluation-item">
+            <h3>Emily Johnson</h3>
+            <p>"The Kiwi Seed Oil is a game changer for my skincare routine. I can't recommend Orgonic Species enough!"</p>
+            <div class="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+        </div>
+        <!-- Review 7 -->
+        <div class="evaluation-item">
+            <h3>Michael Brown</h3>
+            <p>"Fast shipping and great products! I'm a repeat customer and will continue to support their mission."</p>
+            <div class="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
+            </div>
+        </div>
+		<!-- Review 8 -->
+<div class="evaluation-item">
+    <h3>Olivia Green</h3>
+    <p>"Outstanding quality and exceptional customer service! Orgonic Species has exceeded my expectations every time."</p>
+    <div class="rating">
+        <span>⭐️⭐️⭐️⭐️⭐️</span>
+    </div>
+</div>
+
+    </div>
+</section>
+
+
+   <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <!-- Footer About -->
+            <div class="footer-about">
+                <h3>About Orgonic Species</h3>
+                <p>We provide sustainable and organic products that contribute to the well-being of the planet and our customers.</p>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="orgonic.html">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="About seeds.html">About Us</a></li>
+                    <li><a href="Contect1.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Social -->
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/profile">Facebook</a></li>
+                    <li><a href="https://twitter.com/">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/">Instagram</a></li>
+                    <li><a href="https://linkedin.com/">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Orgonic Species. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="curt.css">
+    <!--bootstrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="product-container">
+        <i class="fa fa-shopping-cart cart-icon"></i>
+        <img src="image/img2.webp" alt="Daikon Radish Sprouting Seed" class="product-image">
+        <div class="product-details">
+            <h1>Chia Seed (Organic) – Plant Salvia hispanica Seeds</h1>
+            <p class="model">Model: SKU17y8u1247767</p>
+            <p class="price">
+                <span class="original-price">Rs.153.00</span>
+                <span class="sale-price" id="sale-price">Rs.74.00</span>
+            </p>
+            <form action="shoppingcurt.php" method="post">
+				
+        <input type="hidden" id="seed" name="seed" value="Chia Seed (Organic)">
+        <input type="hidden" id="model" name="model" value="SKU17y8u1247767">
+    
+                <div class="product-options">
+                    <label for="size">Size:</label>
+                    <select id="size" name="size">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="quantity">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1">
+                </div>
+                <input type="hidden" id="amount" name="amount" value="74.00">
+			
+          <button type="submit" id="add-to-cart">ADD TO CART</button>
+			  
+
+            </form>
+            <div class="share">
+                <span>Share:</span>
+                <a href="https://www.facebook.com/profile"><i class="fab fa-facebook" style="color:blue;"></i></a>
+                <a href="https://twitter.com/"><i class="fab fa-twitter" style="color:#00d5ff;"></i></a>
+                <a href="https://pinterest.com/"><i class="fab fa-pinterest" style="color:#ff0000;"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sizeSelect = document.getElementById('size');
+        const salePriceElement = document.getElementById('sale-price');
+        const amountInput = document.getElementById('amount');
+
+        sizeSelect.addEventListener('change', function() {
+            let price;
+            switch (sizeSelect.value) {
+                case 'small':
+                    price = 74.00;
+                    break;
+                case 'medium':
+                    price = 100.00; // Example price for medium size
+                    break;
+                case 'large':
+                    price = 125.00; // Example price for large size
+                    break;
+                default:
+                    price = 74.00;
+            }
+            salePriceElement.textContent = `Rs.${price.toFixed(2)}`;
+            amountInput.value = price.toFixed(2);
+        });
+    </script>
+</body>
+</html>

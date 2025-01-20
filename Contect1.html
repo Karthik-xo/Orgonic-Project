@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #002366; /* Navy blue background color */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px; /* Decrease max-width for smaller input boxes */
+            margin: 50px auto; /* Increase margin for better spacing */
+        }
+
+        .contact-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-form h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="file"],
+        .form-group textarea {
+            width: 100%;
+            padding: 8px; /* Decrease padding for smaller input boxes */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="file"]:focus,
+        .form-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px; /* Decrease min-height for smaller text area */
+        }
+
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #f75454; /* Change button color to match image */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.8s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #c43d3d; /* Darker shade for hover effect */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px auto;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="file"],
+            .form-group textarea {
+                padding: 6px; /* Adjust padding for smaller screens */
+            }
+
+            .form-group button {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="contact-form">
+            <h1>Contact Us</h1>
+          <form action="https://formsubmit.co/0ebc4aff01d8557b7ecc9492e55c88d8" method="POST" />
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+				<div class="form-group">
+                    <label for="mobile">Your Mobile Number</label>
+                    <input type="text" id="mobile" name="mobile" required>
+                </div> 
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="email">Model Code </label>
+                    <input type="text" id="model code" name="model code" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            fetch('send_email.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = 'thankyou.html';
+                } else {
+                    alert('There was a problem with the submission.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('There was a problem with the submission.');
+            });
+        });
+    </script>
+</body>
+</html>

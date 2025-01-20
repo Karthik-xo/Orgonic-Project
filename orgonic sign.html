@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="orgonic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form id="registerForm" action="orgonic_sign.php" method="POST">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a class="social"  href="https://www.facebook.com/profile" ><i class="fa-brands fa-facebook fa-spin fa-xl" style="color: #0091ff;"></i></a>
+                    <a class="social" href="https://google.com/" ><i class="fa-brands fa-google fa-beat-fade" style="color: #ff0000;"></i></a>
+                    <a href="https://linkedin.com/" class="social"><i class="fa-brands fa-linkedin fa-flip fa-xl " style="color: #005eff;"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <input type="text" id="registerName" name="name" placeholder="Name" />
+                <input type="email" id="registerEmail" name="email" placeholder="Email" />
+                <input type="password" id="registerPassword" name="password" placeholder="Password" />
+                <button type="button" onclick="register()">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form id="signInForm" action="#">
+                <h1>Sign In</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input type="email" id="signInEmail" placeholder="Email" />
+                <input type="password" id="signInPassword" placeholder="Password" />
+                <button type="button" id="signInButton" onclick="signIn()">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function signIn() {
+            const email = document.getElementById("signInEmail").value;
+            const password = document.getElementById("signInPassword").value;
+
+            if (email && password) {
+                window.location.href = 'orgonic.html';
+            } else {
+                alert("Please enter both email and password.");
+            }
+        }
+
+        function register() {
+            const name = document.getElementById("registerName").value;
+            const email = document.getElementById("registerEmail").value;
+            const password = document.getElementById("registerPassword").value;
+
+            if (name && email && password) {
+                document.getElementById('registerForm').submit();
+            } else {
+                alert("Please fill in all fields to register.");
+            }
+        }
+    </script>
+	 <script src="spacies.js"></script>
+</body>
+</html>

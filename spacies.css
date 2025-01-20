@@ -1,0 +1,26 @@
+function myfunc(event){
+event.preventDefault();
+
+var id=document.getElementById("id").value;
+var name=document.getElementById("name").value;
+var age=document.getElementById("age").value;
+var gender=document.getElementById("gender").value;
+var email=document.getElementById("email").value;
+var address=document.getElementById("address").value;
+var phonenumber=document.getElementById("phonenumber").value;
+var bloodgroup=document.getElementById("bloodgroup").value;
+var busnumber=document.getElementById("busnumber").value;
+
+
+temp gender.checked? gender="Male":gender="Female";
+
+localStorage.setItem('Is id',id);
+localStorage.setItem('Is name',name);
+localStorage.setItem('Is age',age);
+localStorage.setItem('Is gendr',gender);
+localStorage.setItem('Is email ',email );
+localStorage.setItem('Is address',address);
+localStorage.setItem('Is phone number',phone number);
+localStorage.setItem('Is bloodgroup',Bloodgroup);
+localStorage.setItem('Is busnumber',busnumber);
+}

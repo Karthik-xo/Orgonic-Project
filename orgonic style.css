@@ -1,0 +1,270 @@
+ <!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Information</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="background-color:yellow;">
+<a href="login2.html" class="button">Click to go back</a>
+
+
+
+
+  <div class="container">
+    <h1>Student Information</h1>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()">
+      <button id="search-btn">Search</button>
+    </div>
+    <table id="student-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+		  <th>Gender</th>
+          <th>Email id</th>
+    <th>Address</th>
+    <th>Phone Number</th>
+	    <th>Blood group</th>
+		    <th>Bus number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Student data will be populated here -->
+        <tr>
+          <td contenteditable="true">1</td>
+          <td contenteditable="true">John Doe</td>
+          <td contenteditable="true">20</td>
+		  
+		 
+         <td contenteditable="true">karthik123@gmail.com</td>
+    <td contenteditable="true">kasinayakanpatti</td>
+    <td contenteditable="true">9876543210</td>
+	<td contenteditable="true">B+ve</td>
+	<td contenteditable="true">S</td>
+          <td>
+            <button class="save-btn" onclick="saveChanges(this)">Save</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td contenteditable="true">2</td>
+          <td contenteditable="true">Moni</td>
+          <td contenteditable="true">11</td>
+		   
+          <td contenteditable="true">moni234@gmail.com</td>
+    <td contenteditable="true">chennai</td>
+    <td contenteditable="true">9878965432</td>
+	<td contenteditable="true">O-ve</td>
+	<td contenteditable="true">7</td>
+          <td>
+            <button class="save-btn" onclick="saveChanges(this)">Save</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+          </td>
+        </tr>
+   <tr>
+          <td contenteditable="true">3</td>
+          <td contenteditable="true">salim</td>
+          <td contenteditable="true">20</td>
+		
+          <td contenteditable="true">salim123@gmail.com</td>
+    <td contenteditable="true">kovai</td>
+    <td contenteditable="true">9876544510</td>
+	<td contenteditable="true">AB-ve</td>
+	<td contenteditable="true">B</td>
+          <td>
+            <button class="save-btn" onclick="saveChanges(this)">Save</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+          </td>
+        </tr>
+   <tr>
+          <td contenteditable="true">4</td>
+          <td contenteditable="true">gopi</td>
+          <td contenteditable="true">20</td>
+		  
+          <td contenteditable="true">gopi0123@gmail.com</td>
+    <td contenteditable="true">kasinayakanpatti</td>
+    <td contenteditable="true">9876598210</td>
+	<td contenteditable="true">O-ve</td>
+	<td contenteditable="true">D</td>
+          <td>
+            <button class="save-btn" onclick="saveChanges(this)">Save</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+          </td>
+        </tr>
+   <tr>
+          <td contenteditable="true">5</td>
+          <td contenteditable="true">pream</td>
+          <td contenteditable="true">23</td>
+		 
+          <td contenteditable="true">pream453@gmail.com</td>
+    <td contenteditable="true">kasinayakanpatti</td>
+    <td contenteditable="true">56746543210</td>
+	<td contenteditable="true">A-ve</td>
+	<td contenteditable="true">F</td>
+          <td>
+            <button class="save-btn" onclick="saveChanges(this)">Save</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+          </td>
+        </tr>
+   <tr>
+          <td contenteditable="true">6</td>
+          <td contenteditable="true">Smith</td>
+          <td contenteditable="true">32</td>
+		 
+          <td contenteditable="true">Smith7823@gmail.com</td>
+    <td contenteditable="true">Austherliya</td>
+    <td contenteditable="true">5676549210</td>
+	<td contenteditable="true">B-ve</td>
+	<td contenteditable="true">ZZ</td>
+          <td>
+            <button class="save-btn" onclick="saveChanges(this)">Save</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+          </td>
+        </tr>
+		<tr>
+          <td contenteditable="true">7</td>
+          <td contenteditable="true">William</td>
+          <td contenteditable="true">32</td>
+		   
+          <td contenteditable="true">William453@gmail.com</td>
+    <td contenteditable="true">Pirates of Caribbean</td>
+    <td contenteditable="true">9443809427</td>
+	<td contenteditable="true">B-ve</td>
+	<td contenteditable="true">ZZ</td>
+          <td>
+            <button class="save-btn" onclick="saveChanges(this)">Save</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+          </td>
+        </tr>
+        <!-- Add more rows for additional students -->
+		
+      </tbody>
+    </table>
+    <div class="add-delete-edit">
+      <button onclick="addRow()">Add</button>
+    </div>
+  </div>
+  <script>
+    function searchTable() {
+      let input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("searchInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("student-table");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1]; // Index 1 for searching in the "Name" column
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+
+    function saveChanges(button) {
+      let row = button.parentNode.parentNode;
+      let cells = row.getElementsByTagName("td");
+
+      // Assuming the first cell is ID and the second cell is Name
+      let id = cells[0].innerText;
+      let newName = cells[1].innerText;
+      let newAge = cells[2].innerText;
+	 
+      let newEmail = cells[3].innerText;
+   let newAddress = cells[4].innerText;
+      let newPhoneNumber = cells[5].innerText;
+	  let newBloodgroup = cells[6].innerText;
+	  	  let newBusnumber = cells[7].innerText;
+
+      // Here, you can update the data in your system (e.g., send it to a server using AJAX)      
+      // For demonstration purposes, log the changes to the console
+      console.log("ID:", id, "New Name:", newName, "New Age:", newAge, "New Email:", newEmail, "New Address:", newAddress, "New Phone Number:", newPhoneNumber, "New Bloodgroup:", newBloodgroup,"New Bus Number:", newBusnumber);
+    }
+
+    function deleteRow(button) {
+      let row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
+    function addRow() {
+      let table = document.getElementById("student-table").getElementsByTagName('tbody')[0];
+      let newRow = table.insertRow(table.rows.length);
+      let cell1 = newRow.insertCell(0);
+      let cell2 = newRow.insertCell(1);
+      let cell3 = newRow.insertCell(2);
+	  
+      let cell4 = newRow.insertCell(3);
+      let cell5 = newRow.insertCell(4);
+      let cell6 = newRow.insertCell(5);
+      let cell7 = newRow.insertCell(6);
+	  let cell8 = newRow.insertCell(7);
+	  let cell9 = newRow.insertCell(8);
+
+      cell1.innerHTML = table.rows.length; // Auto-increment ID
+      cell2.contentEditable = true; // Editable cell for Name 
+      cell3.contentEditable = true; // Non-editable cell for Age
+	  
+      cell4.contentEditable = true; // Non-editable cell for Email id
+      cell5.contentEditable = true; // Editable cell for Address
+      cell6.contentEditable = true; // Editable cell for Phone Number
+	  cell7.contentEditable = true; // Editable cell for Blood group
+	  cell8.contentEditable = true; // Editable cell for Bus number
+      cell9.innerHTML = '<button class="save-btn" onclick="saveChanges(this)">Save</button>' +
+                        '<button class="delete-btn" onclick="deleteRow(this)">Delete</button>';
+    }
+	
+	// ... (Your existing JavaScript code) ...
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all the cells in the "Name" column
+  let nameCells = document.querySelectorAll("#student-table tbody tr td:nth-child(2)");
+
+  // Attach click event listeners to each name cell
+  nameCells.forEach(function (cell) {
+    cell.addEventListener("dblclick", function () {
+      // Get the text content of the clicked cell
+      let id = this.parentNode.querySelector("td:nth-child(1)").textContent.trim(); // Get ID
+      let name = this.textContent.trim(); // Get Name
+      let age = this.parentNode.querySelector("td:nth-child(3)").textContent.trim(); // Get Age
+	  
+      let email = this.parentNode.querySelector("td:nth-child(5)").textContent.trim(); // Get Email
+      let address = this.parentNode.querySelector("td:nth-child(6)").textContent.trim(); // Get Address
+      let phoneNumber = this.parentNode.querySelector("td:nth-child(7)").textContent.trim(); // Get Phone Number
+	  let Bloodgroup = this.parentNode.querySelector("td:nth-child(8)").textContent.trim(); // Get Blood group
+      let Busnumber = this.parentNode.querySelector("td:nth-child(9)").textContent.trim(); // Get Bus number
+
+
+      // Construct the URL with multiple query parameters
+      let url = `detailsPage.html?id=${id}&name=${encodeURIComponent(name)}&age=${age}&email=${encodeURIComponent(email)}&address=${encodeURIComponent(address)}&phoneNumber=${phoneNumber}&Bloodgroup=${Bloodgroup}&Busnumber=${Busnumber}`;
+      
+      // Redirect to the detailsPage.html with all the details as query parameters
+      window.location.href = url;
+    });
+  });
+});
+// ... (Remaining HTML code) ...
+
+
+
+ 
+
+ 
+
+
+<!-- ... (Remaining HTML code) ... -->
+
+ 
+
+	</script>
+</body>
+</html>

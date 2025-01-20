@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="curt.css">
+    <!--bootstrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="product-container">
+        <i class="fa fa-shopping-cart cart-icon"></i>
+       <img src="image/brtinica seed.webp" alt="Daikon Radish Sprouting Seed" class="product-image">
+        <div class="product-details">
+         <h4 style="text-align: justify;text-align:center">Brtinica Seed (Organic) – Plant Nectarines (Prunus persica) Seeds</h4>
+            <p class="model">Model: HSN1712119056</p>
+
+  <p class="price">
+                <span class="original-price">Rs.300.00</span>
+                <span class="sale-price" id="sale-price">Rs.150.00</span>
+            </p>
+            <form action="brtinica.php" method="post">
+				
+        <input type="hidden" id="seed" name="seed" value="Brtinica Seed (Organic)">
+        <input type="hidden" id="model" name="model" value=" HSN1712119056">
+    
+                <div class="product-options">
+                    <label for="size">Size:</label>
+                    <select id="size" name="size">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="quantity">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1">
+                </div>
+                <input type="hidden" id="amount" name="amount" value="150.00">
+			
+          <button type="submit" id="add-to-cart">ADD TO CART</button>
+			  
+
+            </form>
+            <div class="share">
+                <span>Share:</span>
+                <a href="https://www.facebook.com/profile"><i class="fab fa-facebook" style="color:blue;"></i></a>
+                <a href="https://twitter.com/"><i class="fab fa-twitter" style="color:#00d5ff;"></i></a>
+                <a href="https://pinterest.com/"><i class="fab fa-pinterest" style="color:#ff0000;"></i></a>
+            </div>
+        </div>
+    </div>
+	<style>
+	body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.product-container:hover {
+    transform: scale(1.02);
+}
+
+.cart-icon {
+    font-size: 24px;
+    color: #333;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.product-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.product-details {
+    text-align: center;
+}
+
+.product-details h1 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.model {
+    color: #888;
+    font-size: 14px;
+}
+
+.price {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.sale-price {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.product-options,
+.quantity {
+    margin: 10px 0;
+}
+
+label {
+    margin-right: 10px;
+}
+
+select,
+input[type="number"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+select:focus,
+input[type="number"]:focus {
+    border-color: #333;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+.share {
+    margin-top: 20px;
+}
+
+.share span {
+    margin-right: 10px;
+    color: #888;
+}
+
+.share a {
+    margin: 0 5px;
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.share a:hover {
+    color: #e74c3c;
+}
+
+@media (max-width: 600px) {
+    .product-container {
+        padding: 10px;
+    }
+
+    .product-details h1 {
+        font-size: 20px;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    .share a {
+        font-size: 18px;
+    }
+}
+
+	</style>
+
+    <script>
+        const sizeSelect = document.getElementById('size');
+        const salePriceElement = document.getElementById('sale-price');
+        const amountInput = document.getElementById('amount');
+
+        sizeSelect.addEventListener('change', function() {
+            let price;
+            switch (sizeSelect.value) {
+                case 'small':
+                    price = 150.00;
+                    break;
+                case 'medium':
+                    price = 190.00; // Example price for medium size
+                    break;
+                case 'large':
+                    price = 260.00; // Example price for large size
+                    break;
+                default:
+                    price = 150.00;
+            }
+            salePriceElement.textContent = `Rs.${price.toFixed(2)}`;
+            amountInput.value = price.toFixed(2);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+        /* Reset basic styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Container and Form Styles */
+        body, html {
+            height: 100%;
+            background-color: #ffffff; /* White background */
+            color: #333333; /* Dark text color */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff; /* White background */
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 768px;
+            min-height: 480px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+            background-color: #ffffff; /* White background for forms */
+            color: #333333; /* Dark text color */
+            width: 50%;
+            padding: 20px;
+        }
+
+        .sign-in-container {
+            left: 0;
+            z-index: 2;
+        }
+
+        .sign-up-container {
+            left: 0;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.right-panel-active .sign-in-container {
+            transform: translateX(100%);
+        }
+
+        .container.right-panel-active .sign-up-container {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: show 0.6s;
+        }
+
+        @keyframes show {
+            0%, 49.99% {
+                opacity: 0;
+                z-index: 1;
+            }
+            50%, 100% {
+                opacity: 1;
+                z-index: 5;
+            }
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+
+        .overlay {
+            background: #a8e6a3; /* Light Green for the overlay */
+            background: linear-gradient(to right, #a8e6a3, #c9ffc9); /* Gradient effect */
+            color: #333333; /* Dark text color */
+            position: absolute;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .container.right-panel-active .overlay-container {
+            transform: translateX(-100%);
+        }
+
+        .container.right-panel-active .overlay {
+            transform: translateX(50%);
+        }
+
+        .overlay-panel {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .overlay-left {
+            transform: translateX(-20%);
+        }
+
+        .container.right-panel-active .overlay-left {
+            transform: translateX(0);
+        }
+
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.right-panel-active .overlay-right {
+            transform: translateX(20%);
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 20px;
+            height: 100%;
+            text-align: center;
+            background-color: #ffffff; /* White background for forms */
+            color: #333333; /* Dark text color */
+        }
+
+        .social-container {
+            margin: 20px 0;
+        }
+
+        .social-container a {
+            border: 1px solid #dddddd;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+            height: 40px;
+            width: 40px;
+        }
+
+        input {
+            background-color: #f0f0f0; /* Light grey input background */
+            color: #333333; /* Dark text color for inputs */
+            border: 1px solid #cccccc; /* Border to distinguish input boxes */
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+            border-radius: 5px; /* Rounded corners for inputs */
+        }
+
+        button {
+            border-radius: 20px;
+            border: 1px solid #4CAF50; /* Apple Green border */
+            background-color: #4CAF50; /* Apple Green background */
+            color: #ffffff; /* White text color */
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button.ghost {
+            background-color: transparent;
+            border-color: #4CAF50; /* Apple Green border for ghost buttons */
+            color: #4CAF50; /* Apple Green text color */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+            }
+
+            .overlay-container {
+                display: none;
+            }
+
+            .form-container {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .sign-up-container, .sign-in-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form id="registerForm" action="orgonic_sign.php" method="POST">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a class="social" href="https://www.facebook.com/profile"><i class="fa-brands fa-facebook fa-spin fa-xl" style="color: #0091ff;"></i></a>
+                    <a class="social" href="https://google.com/"><i class="fa-brands fa-google fa-beat-fade" style="color: #ff0000;"></i></a>
+                    <a href="https://linkedin.com/" class="social"><i class="fa-brands fa-linkedin fa-flip fa-xl" style="color: #005eff;"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <input type="text" id="registerName" name="name" placeholder="Name" />
+                <input type="email" id="registerEmail" name="email" placeholder="Email" />
+                <input type="password" id="registerPassword" name="password" placeholder="Password" />
+                <button type="button" onclick="register()">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form id="signInForm" action="#">
+                <h1>Sign In</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input type="email" id="signInEmail" placeholder="Email" />
+                <input type="password" id="signInPassword" placeholder="Password" />
+                <button type="button" onclick="signIn()">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us, please login with your personal info</p>
+                    <button class="ghost" id="signIn" onclick="moveToSignIn()">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start your journey with us</p>
+                    <button class="ghost" id="signUp" onclick="moveToSignUp()">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+
+        function moveToSignUp() {
+            container.classList.add("right-panel-active");
+        }
+
+        function moveToSignIn() {
+            container.classList.remove("right-panel-active");
+        }
+
+        function signIn() {
+            const email = document.getElementById("signInEmail").value;
+            const password = document.getElementById("signInPassword").value;
+
+            if (email && password) {
+                window.location.href = 'orgonic.html';
+            } else {
+                alert("Please enter both email and password.");
+            }
+        }
+
+        function register() {
+            const name = document.getElementById("registerName").value;
+            const email = document.getElementById("registerEmail").value;
+            const password = document.getElementById("registerPassword").value;
+
+            if (name && email && password) {
+                document.getElementById('registerForm').submit();
+            } else {
+                alert("Please fill in all fields to register.");
+            }
+        }
+    </script>
+</body>
+</html>

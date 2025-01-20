@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Shopping Cart Contents</h1>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Item Name</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cart-item">
+                    <td data-label="Image"><img src="image/sliced-seed.jpg" alt="Daikon Radish Sprouting Seed" class="item-image"></td>
+                    <td class="item-name" data-label="Item Name">Sliced-Seed (Organic)</td>
+                    <td data-label="Size">
+                        <select class="size">
+                            <option value="70.00" data-size="Small">Small</option>
+                            <option value="150.00" data-size="Medium">Medium</option>
+                            <option value="180.00" data-size="Large">Large</option>
+                            <option value="70.00" data-size="Large">Others</option>
+                        </select>
+                    </td>
+                    <td data-label="Quantity">
+                        <input type="number" class="quantity" value="2" min="1">
+                    </td>
+                    <td class="price" data-label="Price">₹70.00</td>
+                    <td class="total" data-label="Total">₹150.00</td>
+                    <td data-label="Remove"><button class="remove">x</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="cart-summary">
+            <div class="subtotal-container">
+                <span class="subtotal-label">Subtotal:</span>
+                <span class="subtotal">₹70.00</span>
+            </div>
+            <div class="buttons-container">
+                <button class="update" onclick="location.href='orgonic.html'">Cancel</button>
+                <button class="checkout" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #f3ec78, #af4261);
+            animation: backgroundAnimation 15s ease infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(45deg, #f3ec78, #af4261); }
+            50% { background: linear-gradient(45deg, #af4261, #f3ec78); }
+            100% { background: linear-gradient(45deg, #f3ec78, #af4261); }
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .cart-table th, .cart-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .item-image:hover {
+            transform: scale(1.1);
+        }
+
+        .quantity {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .update, .remove, .checkout {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .remove {
+            background: #ff0000;
+        }
+
+        .remove:hover {
+            background: #cc0000;
+        }
+
+        .checkout {
+            background: #28a745;
+        }
+
+        .checkout:hover {
+            background: #218838;
+        }
+
+        .update {
+            background: #0056b3;
+        }
+
+        .update:hover {
+            background: #004494;
+        }
+
+        .cart-summary {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 18px;
+        }
+
+        .subtotal-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            width: auto;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .buttons-container .update {
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        .buttons-container .checkout {
+            margin-left: 10px;
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .cart-table, .cart-table thead, .cart-table tbody, .cart-table th, .cart-table td, .cart-table tr {
+                display: block;
+            }
+
+            .cart-table tr {
+                margin-bottom: 15px;
+            }
+
+            .cart-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            .cart-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 10px;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .item-image {
+                display: block;
+                margin: 0 auto 10px;
+            }
+
+            .subtotal-container {
+                flex-direction: column;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            .buttons-container .update, .buttons-container .checkout {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cart-table td {
+                text-align: right;
+                padding-left: 45%;
+            }
+
+            .cart-table td:before {
+                width: 45%;
+            }
+
+            .buttons-container .update, .buttons-container .checkout {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 300px) {
+            .cart-table td {
+                text-align: right;
+                padding-left: 40%;
+            }
+
+            .cart-table td:before {
+                width: 40%;
+            }
+
+            .buttons-container .update, .buttons-container .checkout {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quantityInputs = document.querySelectorAll('.quantity');
+            const sizeSelectors = document.querySelectorAll('.size');
+            const priceElements = document.querySelectorAll('.price');
+            const totalElements = document.querySelectorAll('.total');
+            const subtotalElement = document.querySelector('.subtotal');
+            const removeButtons = document.querySelectorAll('.remove');
+
+            function updateTotals() {
+                let subtotal = 0;
+                quantityInputs.forEach((input, index) => {
+                    const quantity = parseInt(input.value);
+                    const price = parseFloat(sizeSelectors[index].value);
+                    const total = quantity * price;
+                    priceElements[index].textContent = `₹${price.toFixed(2)}`;
+                    totalElements[index].textContent = `₹${total.toFixed(2)}`;
+                    subtotal += total;
+                });
+                subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+            }
+
+            quantityInputs.forEach((input) => {
+                input.addEventListener('change', () => {
+                    updateTotals();
+                });
+            });
+
+            sizeSelectors.forEach((select) => {
+                select.addEventListener('change', () => {
+                    updateTotals();
+                });
+            });
+
+            removeButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    button.closest('.cart-item').remove();
+                    updateTotals();
+                });
+            });
+
+            updateTotals();
+        });
+
+        function checkout() {
+            const cartItems = document.querySelectorAll('.cart-item');
+            const cart = [];
+
+            cartItems.forEach(item => {
+                const name = item.querySelector('.item-name').textContent;
+                const size = item.querySelector('.size').selectedOptions[0].textContent;
+                const quantity = parseInt(item.querySelector('.quantity').value);
+                const price = parseFloat(item.querySelector('.size').value);
+                const total = parseFloat(item.querySelector('.total').textContent.replace('₹', ''));
+
+                cart.push({
+                    name: name,
+                    size: size,
+                    quantity: quantity,
+                    price: price,
+                    total: total
+                });
+            });
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'checkout.php';
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'cart';
+            input.value = JSON.stringify(cart);
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+</html>
